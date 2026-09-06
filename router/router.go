@@ -82,4 +82,12 @@ func SetupRoutes(mux *http.ServeMux, ctx *handlers.AppContext) {
 	mux.HandleFunc("/api/admin/payments/create", ctx.HandleAdminCreatePayment)
 	mux.HandleFunc("/api/admin/payments/delete", ctx.HandleAdminDeletePayment)
 	mux.HandleFunc("/api/admin/summary", ctx.HandleAdminSummary)
+	mux.HandleFunc("/api/admin/stores", ctx.HandleGetStores)
+	mux.HandleFunc("/api/admin/stores/update", ctx.HandleUpdateStore)
+	mux.HandleFunc("/api/admin/stores/delete", ctx.HandleDeleteStore)
+
+	// Migration API Endpoints
+	mux.HandleFunc("/api/migration/bulk/dimensions", ctx.RequirePermission(models.PermInventoryWrite, ctx.HandleMigrationDimensions))
+	mux.HandleFunc("/api/migration/bulk/products", ctx.RequirePermission(models.PermInventoryWrite, ctx.HandleMigrationProducts))
+	mux.HandleFunc("/api/migration/bulk/receipts", ctx.RequirePermission(models.PermInventoryWrite, ctx.HandleMigrationReceipts))
 }

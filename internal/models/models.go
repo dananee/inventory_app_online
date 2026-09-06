@@ -3,6 +3,7 @@ package models
 // CategoryDB represents a product category linked with a business ID.
 type CategoryDB struct {
 	ID         int    `json:"id"`
+	LocalID    int    `json:"localId,omitempty"`
 	Name       string `json:"name"`
 	BusinessID int    `json:"businessId"`
 }
@@ -29,6 +30,7 @@ type Product struct {
 // Supplier represents a product provider.
 type Supplier struct {
 	ID      int    `json:"id"`
+	LocalID int    `json:"localId,omitempty"`
 	Name    string `json:"name"`
 	Phone   string `json:"phone"`
 	Email   string `json:"email"`
@@ -279,4 +281,32 @@ type AddByBarcodeRequest struct {
 	ProductType     string  `json:"productType"`
 	Category        string  `json:"category"`
 	SupplierID      int     `json:"supplierId"`
+}
+
+// MigrationMapping is used to return the ID map to the client
+type MigrationMapping struct {
+	LocalID int `json:"localId"`
+	CloudID int `json:"cloudId"`
+}
+
+type DimensionsMigrationRequest struct {
+	Categories []CategoryDB `json:"categories"`
+	Suppliers  []Supplier   `json:"suppliers"`
+}
+
+type DimensionsMigrationResponse struct {
+	Categories []MigrationMapping `json:"categories"`
+	Suppliers  []MigrationMapping `json:"suppliers"`
+}
+
+type ProductsMigrationRequest struct {
+	Products []Product `json:"products"`
+}
+
+type ProductsMigrationResponse struct {
+	Products []MigrationMapping `json:"products"`
+}
+
+type ReceiptsMigrationRequest struct {
+	Receipts []Receipt `json:"receipts"`
 }
