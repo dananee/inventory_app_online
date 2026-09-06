@@ -1,0 +1,9 @@
+.git
+.gitignore
+*.db
+*.db-shm
+*.db-wal
+tmp/
+inventory_app
+inventory_app_online
+.DS_Store
